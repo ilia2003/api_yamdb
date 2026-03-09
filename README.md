@@ -1,75 +1,164 @@
-```sh
 # API YamDB
-API YamDB — это RESTful API для системы отзывов на произведения искусства, книги, фильмы и музыку.
 
-## Описание
-Проект **API YamDB** собирает отзывы пользователей на различные произведения. Пользователи могут:
-- Оставлять отзывы с оценкой от 1 до 10.
-- Комментировать отзывы.
-- Просматривать средний рейтинг произведений.
-- Управлять категориями и жанрами (для администраторов).
+RESTful API service for collecting user reviews on various types of media such as books, movies, music, and other works.
 
-## Стек технологий
-- Python3
+The project demonstrates backend development using **Django REST Framework**, including authentication, permissions, and relational data modeling.
+
+---
+
+# Project Description
+
+**YamDB API** allows users to leave reviews and ratings for different works.
+
+Users can:
+
+- Leave reviews with a rating from **1 to 10**
+- Comment on reviews
+- View the **average rating** of works
+- Browse categories and genres
+- Manage data through an admin interface
+
+Administrators can:
+
+- Manage categories and genres
+- Moderate reviews and comments
+- Manage user roles and permissions
+
+---
+
+# Features
+
+- JWT authentication
+- Role-based access control (User / Moderator / Admin)
+- Reviews and comments system
+- Rating calculation
+- API filtering and pagination
+- CSV data import support
+- Django admin panel
+
+---
+
+# Tech Stack
+
+Backend:
+
+- Python
+- Django
 - Django REST Framework
+
+Tools:
+
 - Git
+- SQLite / PostgreSQL (depending on environment)
 
-## Установка
-1. Клонируйте репозиторий:
-   git clone git@github.com:ваш_профиль/api_yamdb.git
-   cd api_yamdb
+---
 
-2. Создайте и активируйте виртуальное окружение:
-   python -m venv venv
-   source venv/bin/activate  # Для MacOS/Linux
-   venv\Scripts\activate  # Для Windows
+# Architecture
 
-3. Установите зависимости:
-   pip install -r requirements.txt
+The application follows a typical Django REST architecture:
 
-4. Выполните миграции и запустите сервер:
-   python manage.py migrate
-   python manage.py runserver
 
-## API Эндпоинты
-| Метод  | URL                             | Описание                           | Права доступа               |
-|--------|---------------------------------|------------------------------------|-----------------------------|
-| GET    | `/api/v1/titles/`               | Получить список произведений       | Доступно без токена         |
-| GET    | `/api/v1/titles/{id}/reviews/`  | Получить список отзывов            | Доступно без токена         |
-| POST   | `/api/v1/titles/{id}/reviews/`  | Оставить отзыв (1 на произведение) | Только авторизованные       |
-| PATCH  | `/api/v1/reviews/{id}/`         | Обновить отзыв                     | Автор, модератор, админ     |
-| DELETE | `/api/v1/reviews/{id}/`         | Удалить отзыв                      | Автор, модератор, админ     |
-| GET    | `/api/v1/titles/{id}/rating/`   | Получить среднюю оценку            | Доступно без токена         |
+Client
+↓
+Django REST API
+↓
+Business Logic
+↓
+Django ORM
+↓
+Database
 
-## Аутентификация
-Для аутентификации используется JWT-токен. Получение токена:
+
+Main entities:
+
+- Users
+- Titles (works)
+- Categories
+- Genres
+- Reviews
+- Comments
+
+---
+
+# Installation
+
+### 1 Clone repository
+
+```bash
+git clone git@github.com:your_profile/api_yamdb.git
+cd api_yamdb
+2 Create virtual environment
+
+Linux / MacOS
+
+python -m venv venv
+source venv/bin/activate
+
+Windows
+
+python -m venv venv
+venv\Scripts\activate
+3 Install dependencies
+pip install -r requirements.txt
+4 Apply migrations
+python manage.py migrate
+5 Run server
+python manage.py runserver
+
+API will be available at:
+
+http://127.0.0.1:8000
+API Endpoints
+Method	Endpoint	Description
+GET	/api/v1/titles/	List of works
+GET	/api/v1/titles/{id}/reviews/	List of reviews
+POST	/api/v1/titles/{id}/reviews/	Create review
+PATCH	/api/v1/reviews/{id}/	Update review
+DELETE	/api/v1/reviews/{id}/	Delete review
+Authentication
+
+JWT authentication is used.
+
+Get token:
+
 POST /api/v1/auth/token/
-Передача токена в заголовках:
+
+Use token:
+
 Authorization: Bearer <your_token>
+Team
+Ivan Safonov
 
-Авторы
+User management system:
 
-1. Первый разработчик - Сафонов Иван
+Registration and authentication
 
-Отвечает за систему управления пользователями:
+User permissions
 
-Система регистрации и аутентификации;
-Права доступа;
-Работа с токеном;
-Система подтверждения через e-mail.
+Token management
 
-2. Второй разработчик - Серых Кирилл
+Email confirmation
 
-Разрабатка модели, view и эндпойнты для:
+Kirill Serykh
 
-Произведений;
-Категорий;
-Жанров;
-Реализует импорт данных из CSV файлов.
+Titles, genres, and categories:
 
-3. Третий разработчик - Федоренко Илья
+Models
 
-Разработка моделей:
-Отзывы;
-Комментарии;
-Рейтинг произведений.# api_yamdb
+API endpoints
+
+CSV data import
+
+Ilya Fedorenko
+
+Reviews and comments system:
+
+Review models
+
+Comment models
+
+Rating calculation
+
+Author
+
+Ilya Fedorenko
